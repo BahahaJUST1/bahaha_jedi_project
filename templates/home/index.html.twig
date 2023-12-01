@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}The Jedi Project{% endblock %}
+
+{% block body %}
+
+<style>
+    @import url('https://fonts.cdnfonts.com/css/star-wars');
+
+    body { background-image: url("{{ asset('images/home_bg.jpg') }}"); font-family: 'Star Wars', sans-serif; color: yellow; }
+
+    a { text-decoration: none; color: yellow; }
+
+    .title { text-align: center; margin-top: 15%; font-size: 2rem}
+
+    .connexion-btn { position: absolute; border: 2px solid yellow; text-align: center; padding: 0.5rem; right: 1rem; top: 1rem; width: 100px; }
+    .connexion-btn:hover { border: 2px solid red; color: red; cursor: pointer; }
+
+    .see-more-btn { position: absolute; transform: translate(-50%, -50%); left: 50%; font-size: 1.5rem; border: 3px solid yellow; padding: 0.5rem; display: inline-block; margin-top: 1rem; }
+    .see-more-btn:hover { border: 3px solid blue; color: blue; cursor: pointer; }
+</style>
+
+<div class="title">
+    <h1>The Jedi Project</h1>
+</div>
+
+<a href="{{ path("app_connexion") }}">
+    <div class="connexion-btn">
+        sith only
+    </div>
+</a>
+
+<a href="{{ path("app_menu") }}">
+    <div class="see-more-btn">
+        Fly into the galaxy
+    </div>
+</a>
+
+{% endblock %}
