@@ -1,20 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MenuController!{% endblock %}
+{% block title %}Jedi Project - Dashboard{% endblock %}
 
 {% block body %}
+
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    @import url('https://fonts.cdnfonts.com/css/star-wars');
+
+    #dashboard { display: grid; grid-template-columns: 20fr 20fr 20fr 20fr 20fr; text-align: center; position: absolute; height: 100%; top: 0; left: 0; width: 100%; font-family: 'Star Wars', sans-serif; color: white; background-color: black; }
+    #dashboard h1 { margin-top: 10rem; padding: 0.5rem; font-size: 1.5rem; }
+    #dashboard div { opacity: 0.5; position: absolute; top: 0; height: 100%; width: 20%; }
+    #dashboard div:hover { opacity: 1; }
+
+    a { text-decoration: none; color: white; }
+    
+    #dashboard-jedis { background-image: url("{{ asset('images/anakin.webp') }}"); background-position: -150px top; }
+    #dashboard-sabres { background-image: url("{{ asset('images/sabre.jpg') }}"); background-position: center; background-size: cover; }
+    #dashboard-padawans { background-image: url("{{ asset('images/ahsoka.webp') }}"); background-position: center; background-size: cover; }
+    #dashboard-legions { background-image: url("{{ asset('images/legion.webp') }}"); background-position: 0; }
+    #dashboard-guerres { background-image: url("{{ asset('images/christophsis.jpg') }}"); background-position: center; background-size: cover; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div id="dashboard">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/bahaha_jedi_project/src/Controller/MenuController.php'|file_link(0) }}">src/Controller/MenuController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/bahaha_jedi_project/templates/menu/index.html.twig'|file_link(0) }}">templates/menu/index.html.twig</a></code></li>
-    </ul>
+    <a href="{{ path("app_jedi") }}">
+        <div id="dashboard-jedis">
+            <h1>j e d i s</h1>
+        </div>
+    </a>
+
+    <a href="{{ path("app_sabre_laser") }}">
+        <div id="dashboard-sabres">
+            <h1>s a b r e s</h1>
+        </div>
+    </a>
+
+    <a href="{{ path("app_padawan") }}">
+        <div id="dashboard-padawans">
+            <h1>p a d a w a n s</h1>
+        </div>
+    </a>
+
+    <a href="{{ path("app_legion_clone") }}">
+        <div id="dashboard-legions">
+            <h1>l e g i o n s</h1>
+        </div>
+    </a>
+
+    <a href="{{ path("app_guerre") }}">
+        <div id="dashboard-guerres">
+            <h1>g u e r r e s</h1>
+        </div>
+    </a>
+
 </div>
+
 {% endblock %}
