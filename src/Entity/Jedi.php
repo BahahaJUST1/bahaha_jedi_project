@@ -12,31 +12,21 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: JediRepository::class)]
 class Jedi extends UtilisateurForce
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
     #[ORM\Column]
     private ?Status $status = Status::chevalier;
 
     #[ORM\OneToOne(inversedBy: 'maitre', cascade: ['persist', 'remove'])]
-    private ?padawan $padawan = null;
+    private ?Padawan $padawan = null;
 
     #[ORM\ManyToOne(inversedBy: 'generaux')]
-    private ?legion $legion = null;
+    private ?Legion $legion = null;
 
-    #[ORM\ManyToMany(targetEntity: guerre::class, inversedBy: 'combattants')]
+    #[ORM\ManyToMany(targetEntity: Guerre::class, inversedBy: 'combattants')]
     private Collection $guerres;
 
     public function __construct()
     {
         $this->guerres = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getStatus(): ?string

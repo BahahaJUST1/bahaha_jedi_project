@@ -2,12 +2,20 @@
 
 namespace App\Entity;
 
+use App\Entity\Padawan;
+use App\Entity\Jedi;
 use App\Repository\UtilisateurForceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UtilisateurForceRepository::class)]
+#[ORM\InheritanceType('JOINED')]
+#[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
+#[ORM\DiscriminatorMap([
+    'padawan' => Padawan::class,
+    'jedi' => Jedi::class
+])]
 class UtilisateurForce
 {
     #[ORM\Id]
