@@ -90,7 +90,7 @@ class SabreFixture extends Fixture implements DependentFixtureInterface
     {
         return [
             PadawanFixture::class,
-            JediFixture::Class
+            JediFixture::class
         ];
     }
 }
