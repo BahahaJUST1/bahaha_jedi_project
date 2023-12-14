@@ -1,20 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PadawanController!{% endblock %}
+{% block title %}Padawans{% endblock %}
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    @import url('https://fonts.cdnfonts.com/css/star-wars');
+
+    #goBack { position: fixed; bottom: 2rem; left: 2rem; height: 5rem; }
+    #goBack:hover { transform: scale(1.1); }
+
+    body { background-image: url("{{ asset('images/home_bg.jpg') }}"); font-family: 'Star Wars', sans-serif; color: white; }
+
+    #title { text-align: center; font-size: 2.5rem; margin-top: 5rem; margin-bottom: 7rem; text-decoration: underline; color: yellow; }
+
+    .grid-padawans { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 20fr)); text-align: center; }
+
+    .padawan-box { border: 3px solid white; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; margin-bottom: 3rem; }
+
+    p { margin: 0; }
+
+    .padawan-name { margin-bottom: 1rem; color: yellow; font-size: 1.2rem; text-align: center; }
+
+    .sabre-laser-list { font-size: 1rem; text-decoration: underline; margin-top: 1.5rem; margin-bottom: 1rem; }
+    
+    .master { margin-top: 1.5rem; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/bahaha_jedi_project/src/Controller/PadawanController.php'|file_link(0) }}">src/Controller/PadawanController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/bahaha_jedi_project/templates/padawan/index.html.twig'|file_link(0) }}">templates/padawan/index.html.twig</a></code></li>
-    </ul>
+<div id="title">Liste des Padawans</div>
+
+
+<div class="grid-padawans">
+    {% for padawan in padawans %}
+
+            <div class="padawan-box">
+                <div class="padawan-name">{{ padawan.getPrenom }} {{ padawan.getNom }}</div>
+
+                <div class="sabre-laser-list">Sabre laser :</div>
+
+                {% for sabre in padawan.getSabres %}
+                    <p class="sabre-laser">
+                        Sabre {{ sabre.getCouleur }}
+                        {% if sabre.isBiLame %}
+                            double
+                        {% endif %}
+                    </p>
+                {% endfor %}
+
+                <div class="master">Maitre : {{ padawan.getMaitre.getPrenom }} {{ padawan.getMaitre.getNom }}</div>
+
+            </div>
+
+    {% endfor %}
 </div>
+
+
+    <a href="{{ path("app_menu") }}"><img id="goBack" src="{{ asset('images/back.png') }}"></a>
+
 {% endblock %}

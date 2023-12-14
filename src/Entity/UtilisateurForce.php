@@ -29,7 +29,7 @@ class UtilisateurForce
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: sabre::class)]
+    #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Sabre::class)]
     private Collection $sabres;
 
     public function __construct()
@@ -67,14 +67,14 @@ class UtilisateurForce
     }
 
     /**
-     * @return Collection<int, sabre>
+     * @return Collection<int, Sabre>
      */
     public function getSabres(): Collection
     {
         return $this->sabres;
     }
 
-    public function addSabre(sabre $sabre): static
+    public function addSabre(Sabre $sabre): static
     {
         if (!$this->sabres->contains($sabre)) {
             $this->sabres->add($sabre);
@@ -84,7 +84,7 @@ class UtilisateurForce
         return $this;
     }
 
-    public function removeSabre(sabre $sabre): static
+    public function removeSabre(Sabre $sabre): static
     {
         if ($this->sabres->removeElement($sabre)) {
             // set the owning side to null (unless already changed)
