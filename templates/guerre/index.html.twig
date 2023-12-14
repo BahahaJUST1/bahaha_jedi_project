@@ -2,25 +2,30 @@
 
 {% block title %}Guerres{% endblock %}
 
+
 {% block body %}
 <style>
     @import url('https://fonts.cdnfonts.com/css/star-wars');
 
     body { background-image: url("{{ asset('images/home_bg.jpg') }}"); font-family: 'Star Wars', sans-serif; color: white; }
 
-    p { margin: 0; }
+    #title { text-align: center; font-size: 2.5rem; margin-top: 5rem; margin-bottom: 7rem; text-decoration: underline; color: yellow; }
 
-    .five-last-war { position: absolute; transform: translate(-50%, 0%); left: 50%; width: 99%; top: 30%; display: grid; grid-template-columns: 20fr 20fr 20fr 20fr 20fr; text-align: center; }
+    .five-last-war { display: grid; grid-template-columns: 20fr 20fr 20fr 20fr 20fr; text-align: center; }
 
-    .war-box { border: 5px solid yellow; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; }
+    .war-box { border: 3px solid white; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; margin-bottom: 3rem; }
     .war-box:hover { cursor: pointer; transform: scale(1.1); }
+
+    p { margin: 0; }
 
     .planet-name { margin-bottom: 1rem; color: yellow; font-size: 1.2rem; text-align: center; }
 
     .engaged-jedis-title { font-size: 1rem; text-decoration: underline; margin-top: 1.5rem; margin-bottom: 1rem; }
-
     .no-jedi { color: red; font-size: 0.7rem; }
 </style>
+
+
+<div id="title">Guerres menees par la republique</div>
 
 
 {# 5 dernières planètes #}
@@ -28,7 +33,7 @@
 {# On inverse la liste obtenue #}
 
 <div class="five-last-war">
-    {% for guerre in guerres|slice((guerres|length)-5, guerres|length)|reverse %}
+    {% for guerre in guerres %}
 
             <div class="war-box">
                 <div class="planet-name">{{ guerre.getPlanete }}</div>
