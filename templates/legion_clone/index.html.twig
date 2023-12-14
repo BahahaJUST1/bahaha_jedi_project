@@ -1,20 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LegionCloneController!{% endblock %}
+{% block title %}Légions clones{% endblock %}
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    @import url('https://fonts.cdnfonts.com/css/star-wars');
+
+    #goBack { position: fixed; bottom: 2rem; left: 2rem; height: 5rem; }
+    #goBack:hover { transform: scale(1.1); }
+
+    body { background-image: url("{{ asset('images/home_bg.jpg') }}"); font-family: 'Star Wars', sans-serif; color: white; }
+
+    #title { text-align: center; font-size: 2.5rem; margin-top: 5rem; margin-bottom: 7rem; text-decoration: underline; color: yellow; }
+
+    .grid-legion { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 20fr)); text-align: center; }
+
+    .legion-box { border: 3px solid white; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; margin-bottom: 3rem; }
+
+    p { margin: 0; }
+
+    .legion-number { margin-bottom: 1rem; color: yellow; font-size: 1.2rem; text-align: center; }
+
+    .jedi-leader { font-size: 1rem; text-decoration: underline; margin-top: 1.5rem; margin-bottom: 1rem; }
+    .no-jedi { color: red; font-size: 0.7rem; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/bahaha_jedi_project/src/Controller/LegionCloneController.php'|file_link(0) }}">src/Controller/LegionCloneController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/bahaha_jedi_project/templates/legion_clone/index.html.twig'|file_link(0) }}">templates/legion_clone/index.html.twig</a></code></li>
-    </ul>
+<div id="title">Legions clone republicaines</div>
+
+
+<div class="grid-legion">
+    {% for legion in legions %}
+
+            <div class="legion-box">
+                <div class="legion-number">{{ legion.getNumero }}e legion</div>
+                <div class="clone-commander">Commandant clone : {{ legion.getCommandant }}</div>
+
+                <div class="jedi-leader">Generaux Jedi :</div>
+                {% if legion.getGeneraux|length > 0 %}
+
+                    {% for general in legion.getGeneraux %}
+                        <p class="engaged-jedis">{{ general.getNom }}</p>
+                    {% endfor %}
+
+                {% else %}
+                    <p class="no-jedi">Aucun jedi en charge de cette legion</p>
+                {% endif %}
+            </div>
+
+    {% endfor %}
 </div>
+
+
+    <a href="{{ path("app_menu") }}"><img id="goBack" src="{{ asset('images/back.png') }}"></a>
+
 {% endblock %}

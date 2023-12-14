@@ -7,14 +7,16 @@
 <style>
     @import url('https://fonts.cdnfonts.com/css/star-wars');
 
+    #goBack { position: fixed; bottom: 2rem; left: 2rem; height: 5rem; }
+    #goBack:hover { transform: scale(1.1); }
+
     body { background-image: url("{{ asset('images/home_bg.jpg') }}"); font-family: 'Star Wars', sans-serif; color: white; }
 
     #title { text-align: center; font-size: 2.5rem; margin-top: 5rem; margin-bottom: 7rem; text-decoration: underline; color: yellow; }
 
-    .five-last-war { display: grid; grid-template-columns: 20fr 20fr 20fr 20fr 20fr; text-align: center; }
+    .grid-war { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 20fr)); text-align: center; }
 
     .war-box { border: 3px solid white; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; margin-bottom: 3rem; }
-    .war-box:hover { cursor: pointer; transform: scale(1.1); }
 
     p { margin: 0; }
 
@@ -28,17 +30,13 @@
 <div id="title">Guerres menees par la republique</div>
 
 
-{# 5 dernières planètes #}
-{# On découpe la liste complète en 2 pour prendre les 5 derniers #}
-{# On inverse la liste obtenue #}
-
-<div class="five-last-war">
+<div class="grid-war">
     {% for guerre in guerres %}
 
             <div class="war-box">
                 <div class="planet-name">{{ guerre.getPlanete }}</div>
 
-                <div class="engaged-jedis-title">Jedis</div>
+                <div class="engaged-jedis-title">Jedis deployes :</div>
                 {% if guerre.getCombattants|length > 0 %}
 
                     {% for combattant in guerre.getCombattants %}
@@ -53,5 +51,7 @@
     {% endfor %}
 </div>
 
+
+    <a href="{{ path("app_menu") }}"><img id="goBack" src="{{ asset('images/back.png') }}"></a>
 
 {% endblock %}
