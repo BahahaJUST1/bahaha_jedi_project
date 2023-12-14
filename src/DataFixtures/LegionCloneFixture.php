@@ -8,6 +8,8 @@ use Doctrine\Persistence\ObjectManager;
 
 class LegionCloneFixture extends Fixture
 {
+    private const LEGION_REFERENCE = 'Legion';
+
     public function load(ObjectManager $manager): void
     {
         $numerosLegions = [
@@ -35,6 +37,7 @@ class LegionCloneFixture extends Fixture
             $legion->setNumero($numerosLegions[$i]);
             $legion->setCommandant($nomsCommandants[$i]);
             $manager->persist($legion);
+            $this->addReference(self::LEGION_REFERENCE . '_' . $numerosLegions[$i], $legion);
         }
 
         $manager->flush();
