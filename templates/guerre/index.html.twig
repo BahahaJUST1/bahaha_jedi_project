@@ -1,20 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello GuerreController!{% endblock %}
+{% block title %}Guerres{% endblock %}
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    @import url('https://fonts.cdnfonts.com/css/star-wars');
+
+    body { background-image: url("{{ asset('images/home_bg.jpg') }}"); font-family: 'Star Wars', sans-serif; color: white; }
+
+    p { margin: 0; }
+
+    .five-last-war { position: absolute; transform: translate(-50%, 0%); left: 50%; width: 99%; top: 30%; display: grid; grid-template-columns: 20fr 20fr 20fr 20fr 20fr; text-align: center; }
+
+    .war-box { border: 5px solid yellow; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; }
+    .war-box:hover { cursor: pointer; transform: scale(1.1); }
+
+    .planet-name { margin-bottom: 1rem; color: yellow; font-size: 1.2rem; text-align: center; }
+
+    .engaged-jedis-title { font-size: 1rem; text-decoration: underline; margin-top: 1.5rem; margin-bottom: 1rem; }
+
+    .no-jedi { color: red; font-size: 0.7rem; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/bahaha_jedi_project/src/Controller/GuerreController.php'|file_link(0) }}">src/Controller/GuerreController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/bahaha_jedi_project/templates/guerre/index.html.twig'|file_link(0) }}">templates/guerre/index.html.twig</a></code></li>
-    </ul>
+{# 5 dernières planètes #}
+{# On découpe la liste complète en 2 pour prendre les 5 derniers #}
+{# On inverse la liste obtenue #}
+
+<div class="five-last-war">
+    {% for guerre in guerres|slice((guerres|length)-5, guerres|length)|reverse %}
+
+            <div class="war-box">
+                <div class="planet-name">{{ guerre.getPlanete }}</div>
+
+                <div class="engaged-jedis-title">Jedis</div>
+                {% if guerre.getCombattants|length > 0 %}
+
+                    {% for combattant in guerre.getCombattants %}
+                        <p class="engaged-jedis">{{ combattant.getNom }}</p>
+                    {% endfor %}
+
+                {% else %}
+                    <p class="no-jedi">Aucun jedi deploye pour cette bataille</p>
+                {% endif %}
+            </div>
+
+    {% endfor %}
 </div>
+
+
 {% endblock %}
