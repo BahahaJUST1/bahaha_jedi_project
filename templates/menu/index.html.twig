@@ -32,35 +32,35 @@
 </style>
 
 
-{# {% if (is_granted('ROLE_ADMIN')) %} #}
-<div id="admin-header">
-    
-    <a href="{{ path("app_register") }}">
-        <div id="header-list-user">
-            <h2>liste utilisateurs</h2>
-        </div>
-    </a>
+{% if (is_granted('ROLE_ADMIN')) %}
+    <div id="admin-header">
+        
+        <a href="{{ path("app_register") }}">
+            <div id="header-list-user">
+                <h2>liste utilisateurs</h2>
+            </div>
+        </a>
 
 
-    <a href="{{ path("app_register") }}">
-        <div id="header-new-user">
-            <h2>nouvel utilisateur</h2>
-        </div>
-    </a>
+        <a href="{{ path("app_register") }}">
+            <div id="header-new-user">
+                <h2>nouvel utilisateur</h2>
+            </div>
+        </a>
 
 
-    {# header gap #}
-    <span></span>
+        {# header gap #}
+        <span></span>
 
 
-    <a href="{{ path("app_register") }}">
-        <div id="header-logout">
-            <h2>déconnexion</h2>
-        </div>
-    </a>
+        <a href="{{ path("app_logout") }}">
+            <div id="header-logout">
+                <h2>déconnexion</h2>
+            </div>
+        </a>
 
-</div>
-{# {% endif %} #}
+    </div>
+{% endif %}
 
 
 <div id="dashboard">
