@@ -22,6 +22,7 @@
     .padawan-name { margin-bottom: 1rem; color: yellow; font-size: 1.2rem; text-align: center; }
 
     .sabre-laser-list { font-size: 1rem; text-decoration: underline; margin-top: 1.5rem; margin-bottom: 1rem; }
+    .other-font { font-family: sans-serif; text-transform: uppercase; font-weight: bold }
     
     .master { margin-top: 1.5rem; }
 </style>
@@ -36,7 +37,7 @@
             <div class="padawan-box">
                 <div class="padawan-name">{{ padawan.getPrenom }} {{ padawan.getNom }}</div>
 
-                <div class="sabre-laser-list">Sabre laser :</div>
+                <div class="sabre-laser-list"><span class="other-font">Sabre laser :</span></div>
 
                 {% for sabre in padawan.getSabres %}
                     <p class="sabre-laser">
@@ -47,7 +48,7 @@
                     </p>
                 {% endfor %}
 
-                <div class="master">Maitre : {{ padawan.getMaitre.getPrenom }} {{ padawan.getMaitre.getNom }}</div>
+                <div class="master"><span class="other-font">Maitre :</span> {{ padawan.getMaitre.getPrenom }} {{ padawan.getMaitre.getNom }}</div>
 
             </div>
 

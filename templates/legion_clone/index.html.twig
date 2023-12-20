@@ -23,6 +23,7 @@
 
     .jedi-leader { font-size: 1rem; text-decoration: underline; margin-top: 1.5rem; margin-bottom: 1rem; }
     .no-jedi { color: red; font-size: 0.7rem; }
+    .other-font { font-family: sans-serif; text-transform: uppercase; font-weight: bold }
 </style>
 
 
@@ -34,9 +35,9 @@
 
             <div class="legion-box">
                 <div class="legion-number">{{ legion.getNumero }}e legion</div>
-                <div class="clone-commander">Commandant clone : {{ legion.getCommandant }}</div>
+                <div class="clone-commander"><span class="other-font">Commandant clone :</span> {{ legion.getCommandant }}</div>
 
-                <div class="jedi-leader">Generaux Jedi :</div>
+                <div class="jedi-leader"><span class="other-font">Generaux Jedi :</span></div>
                 {% if legion.getGeneraux|length > 0 %}
 
                     {% for general in legion.getGeneraux %}

@@ -22,7 +22,46 @@
     #dashboard-padawans { background-image: url("{{ asset('images/ahsoka.webp') }}"); background-position: center; background-size: cover; }
     #dashboard-legions { background-image: url("{{ asset('images/legion.webp') }}"); background-position: 0; background-size: cover; }
     #dashboard-guerres { background-image: url("{{ asset('images/christophsis.jpg') }}"); background-position: center; background-size: cover; }
+
+    #admin-header { position: absolute; top: 0; right: 0; width: 100%; display: grid; grid-template-columns: 15fr 15fr 60fr 10fr; background-color : #222222; border-bottom: 1px solid #757575; z-index: 1; font-family: sans-serif; text-transform: uppercase; }
+    #admin-header h2 { font-size: 1rem; text-align: center; }
+    #header-logout h2 { text-align: right; margin-right: 1rem; }
+
+    #admin-header a { color: lightgray; border-left: 1px solid #757575; border-right: 1px solid #757575; }
+    #admin-header a:hover { color: white; }
 </style>
+
+
+{# {% if (is_granted('ROLE_ADMIN')) %} #}
+<div id="admin-header">
+    
+    <a href="{{ path("app_register") }}">
+        <div id="header-list-user">
+            <h2>liste utilisateurs</h2>
+        </div>
+    </a>
+
+
+    <a href="{{ path("app_register") }}">
+        <div id="header-new-user">
+            <h2>nouvel utilisateur</h2>
+        </div>
+    </a>
+
+
+    {# header gap #}
+    <span></span>
+
+
+    <a href="{{ path("app_register") }}">
+        <div id="header-logout">
+            <h2>déconnexion</h2>
+        </div>
+    </a>
+
+</div>
+{# {% endif %} #}
+
 
 <div id="dashboard">
 

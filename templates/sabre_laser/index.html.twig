@@ -22,6 +22,7 @@
     .sabre-laser { margin-bottom: 1rem; color: yellow; font-size: 1.2rem; text-align: center; }
     
     .proprio { margin-top: 1.5rem; }
+    .other-font { font-family: sans-serif; text-transform: uppercase; font-weight: bold }
 </style>
 
 
@@ -40,7 +41,7 @@
                         {% endif %}
                 </div>
 
-                <div class="proprio">Proprietaire : {{ sabre.getProprietaire.getPrenom }} {{ sabre.getProprietaire.getNom }}</div>
+                <div class="proprio"><span class="other-font">Proprietaire :</span> {{ sabre.getProprietaire.getPrenom }} {{ sabre.getProprietaire.getNom }}</div>
 
             </div>
 

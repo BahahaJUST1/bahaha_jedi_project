@@ -24,6 +24,7 @@
 
     .engaged-jedis-title { font-size: 1rem; text-decoration: underline; margin-top: 1.5rem; margin-bottom: 1rem; }
     .no-jedi { color: red; font-size: 0.7rem; }
+    .other-font { font-family: sans-serif; text-transform: uppercase; font-weight: bold }
 </style>
 
 
@@ -36,7 +37,7 @@
             <div class="war-box">
                 <div class="planet-name">{{ guerre.getPlanete }}</div>
 
-                <div class="engaged-jedis-title">Jedis deployes :</div>
+                <div class="engaged-jedis-title"><span class="other-font">Jedis deployes :</span></div>
                 {% if guerre.getCombattants|length > 0 %}
 
                     {% for combattant in guerre.getCombattants %}
