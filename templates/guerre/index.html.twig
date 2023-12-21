@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Guerres{% endblock %}
+{% block title %}{{'Wars'|trans}}{% endblock %}
 
 
 {% block body %}
@@ -28,7 +28,7 @@
 </style>
 
 
-<div id="title">Guerres menees par la republique</div>
+<div id="title">{{'Wars waged by the republic'|trans}}</div>
 
 
 <div class="grid-war">
@@ -37,7 +37,7 @@
             <div class="war-box">
                 <div class="planet-name">{{ guerre.getPlanete }}</div>
 
-                <div class="engaged-jedis-title"><span class="other-font">Jedis deployes :</span>g</div>
+                <div class="engaged-jedis-title"><span class="other-font">{{'Deployed jedis'|trans}} :</span></div>
                 {% if guerre.getCombattants|length > 0 %}
 
                     {% for combattant in guerre.getCombattants %}
@@ -45,7 +45,7 @@
                     {% endfor %}
 
                 {% else %}
-                    <p class="no-jedi">Aucun jedi deploye pour cette bataille</p>
+                    <p class="no-jedi">{{'No Jedi deployed for this battle'|trans}}</p>
                 {% endif %}
             </div>
 

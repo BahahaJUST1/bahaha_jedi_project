@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Jedi Project - Dashboard{% endblock %}
+{% block title %}Jedi Project - {{'Dashboard'|trans}}{% endblock %}
 
 {% block body %}
 
@@ -25,7 +25,6 @@
 
     #admin-header { position: absolute; top: 0; right: 0; width: 100%; display: grid; grid-template-columns: 15fr 15fr 60fr 10fr; background-color : #222222; border-bottom: 1px solid #757575; z-index: 1; font-family: sans-serif; text-transform: uppercase; }
     #admin-header h2 { font-size: 1rem; text-align: center; }
-    #header-logout h2 { text-align: right; margin-right: 1rem; }
 
     #admin-header a { color: lightgray; border-left: 1px solid #757575; border-right: 1px solid #757575; }
     #admin-header a:hover { color: white; }
@@ -37,14 +36,14 @@
         
         <a href="{{ path("app_user") }}">
             <div id="header-list-user">
-                <h2>liste utilisateurs</h2>
+                <h2>{{'user list'|trans}}</h2>
             </div>
         </a>
 
 
         <a href="{{ path("app_register") }}">
             <div id="header-new-user">
-                <h2>nouvel utilisateur</h2>
+                <h2>{{'add user'|trans}}</h2>
             </div>
         </a>
 
@@ -55,7 +54,7 @@
 
         <a href="{{ path("app_logout") }}">
             <div id="header-logout">
-                <h2>déconnexion</h2>
+                <h2>{{'logout'|trans}}</h2>
             </div>
         </a>
 
@@ -73,7 +72,7 @@
 
     <a href="{{ path("app_sabre_laser") }}">
         <div id="dashboard-sabres">
-            <h1>s a b r e s</h1>
+            <h1>{{'s a b e r s'|trans}}</h1>
         </div>
     </a>
 
@@ -85,13 +84,13 @@
 
     <a href="{{ path("app_legion_clone") }}">
         <div id="dashboard-legions">
-            <h1>l e g i o n s</h1>
+            <h1>{{'l e g i o n s'|trans}}</h1>
         </div>
     </a>
 
     <a href="{{ path("app_guerre") }}">
         <div id="dashboard-guerres">
-            <h1>g u e r r e s</h1>
+            <h1>{{'w a r s'|trans}}</h1>
         </div>
     </a>
 

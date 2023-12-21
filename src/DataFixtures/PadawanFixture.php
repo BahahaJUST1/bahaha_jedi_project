@@ -14,7 +14,7 @@ class PadawanFixture extends Fixture
     {
         $noms = [
             "Tano",
-            "Opress"
+            "opress"
         ];
 
         $prenoms = [

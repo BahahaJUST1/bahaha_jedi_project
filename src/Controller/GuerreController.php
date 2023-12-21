@@ -10,7 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GuerreController extends AbstractController
 {
-    #[Route('/guerre', name: 'app_guerre')]
+    #[Route('/guerre')]
+    public function indexNoLocale(): Response
+    {
+        return $this->redirectToRoute('app_guerre', ['_locale' => 'en']);
+    }
+
+    #[Route('/{_locale<%app.supported_locales%>}/guerre', name: 'app_guerre')]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $guerres = $entityManager->getRepository(Guerre::class)->findAll();

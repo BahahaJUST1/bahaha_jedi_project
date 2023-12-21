@@ -10,7 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LegionCloneController extends AbstractController
 {
-    #[Route('/legion-clone', name: 'app_legion_clone')]
+    #[Route('/legion-clone')]
+    public function indexNoLocale(): Response
+    {
+        return $this->redirectToRoute('app_legion_clone', ['_locale' => 'en']);
+    }
+
+    #[Route('/{_locale<%app.supported_locales%>}/legion-clone', name: 'app_legion_clone')]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $legions = $entityManager->getRepository(Legion::class)->findAll();

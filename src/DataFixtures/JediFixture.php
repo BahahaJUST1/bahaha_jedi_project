@@ -27,7 +27,7 @@ class JediFixture extends Fixture implements DependentFixtureInterface
             "Dark",
             "Pong",
             "Anakin",
-            "Obi-Wan",
+            "obi-Wan",
             "Qui-Gon",
             "Mace"
         ];

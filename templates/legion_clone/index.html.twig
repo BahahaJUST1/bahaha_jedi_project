@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Légions clones{% endblock %}
+{% block title %}{{'Clones legions'|trans}}{% endblock %}
 
 {% block body %}
 <style>
@@ -27,7 +27,7 @@
 </style>
 
 
-<div id="title">Legions clone republicaines</div>
+<div id="title">{{'Republic clones legions'|trans}}</div>
 
 
 <div class="grid-legion">
@@ -35,9 +35,9 @@
 
             <div class="legion-box">
                 <div class="legion-number">{{ legion.getNumero }}e legion</div>
-                <div class="clone-commander"><span class="other-font">Commandant clone :</span> {{ legion.getCommandant }}</div>
+                <div class="clone-commander"><span class="other-font">{{'Clone commander'|trans}} :</span> {{ legion.getCommandant }}</div>
 
-                <div class="jedi-leader"><span class="other-font">Generaux Jedi :</span></div>
+                <div class="jedi-leader"><span class="other-font">{{'jedi generals'|trans}} :</span></div>
                 {% if legion.getGeneraux|length > 0 %}
 
                     {% for general in legion.getGeneraux %}
@@ -45,7 +45,7 @@
                     {% endfor %}
 
                 {% else %}
-                    <p class="no-jedi">Aucun jedi en charge de cette legion</p>
+                    <p class="no-jedi">{{'No jedi in charge of this legion'|trans}}</p>
                 {% endif %}
             </div>
 

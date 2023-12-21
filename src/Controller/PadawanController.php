@@ -10,7 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PadawanController extends AbstractController
 {
-    #[Route('/padawan', name: 'app_padawan')]
+    #[Route('/padawan')]
+    public function indexNoLocale(): Response
+    {
+        return $this->redirectToRoute('app_padawan', ['_locale' => 'en']);
+    }
+
+    #[Route('/{_locale<%app.supported_locales%>}/padawan', name: 'app_padawan')]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $padawans = $entityManager->getRepository(Padawan::class)->findAll();

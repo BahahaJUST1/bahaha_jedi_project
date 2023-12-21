@@ -18,21 +18,40 @@
 
     .see-more-btn { position: absolute; transform: translate(-50%, -50%); left: 50%; font-size: 1.5rem; border: 3px solid yellow; padding: 0.5rem; display: inline-block; margin-top: 1rem; }
     .see-more-btn:hover { border: 3px solid blue; color: blue; cursor: pointer; }
+
+    #flag-list { position: absolute; top: 1rem; left: 1rem; }
+    .flag img { border-radius: 5px; width: 25%; margin-bottom: 0.5rem; }
+    .flag img:hover { transform: scale(1.1); cursor: pointer; }
 </style>
 
 <div class="title">
     <h1>The Jedi Project</h1>
 </div>
 
+
+<div id="flag-list">
+    
+    <div class="flag"> <a href="{{ path('app_home', {_locale: 'en'}) }}"> <img src="{{ asset('images/flags/en.png') }}" title="{{'English'|trans}}"> </a> </div>
+
+    <div class="flag"> <a href="{{ path('app_home', {_locale: 'fr'}) }}"> <img src="{{ asset('images/flags/fr.png') }}" title="{{'French'|trans}}"> </a> </div>
+    
+    <div class="flag"> <a href="{{ path('app_home', {_locale: 'ge'}) }}"> <img src="{{ asset('images/flags/ge.png') }}" title="{{'German'|trans}}"> </a> </div>
+    
+    <div class="flag"> <a href="{{ path('app_home', {_locale: 'it'}) }}"> <img src="{{ asset('images/flags/it.png') }}" title="{{'Italian'|trans}}"> </a> </div>
+    
+    <div class="flag"> <a href="{{ path('app_home', {_locale: 'es'}) }}"> <img src="{{ asset('images/flags/es.png') }}" title="{{'Spanish'|trans}}"> </a> </div>
+
+</div>
+
 <a href="{{ path("app_login") }}">
     <div class="connexion-btn">
-        sith only
+        {{'sith only'|trans}}
     </div>
 </a>
 
 <a href="{{ path("app_menu") }}">
     <div class="see-more-btn">
-        Fly into the galaxy
+        {{'Fly into the galaxy'|trans}}
     </div>
 </a>
 

@@ -10,7 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SabreLaserController extends AbstractController
 {
-    #[Route('/sabre-laser', name: 'app_sabre_laser')]
+    #[Route('/sabre-laser')]
+    public function indexNoLocale(): Response
+    {
+        return $this->redirectToRoute('app_sabre-laser', ['_locale' => 'en']);
+    }
+
+    #[Route('/{_locale<%app.supported_locales%>}/sabre-laser', name: 'app_sabre_laser')]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $sabres = $entityManager->getRepository(Sabre::class)->findAll();

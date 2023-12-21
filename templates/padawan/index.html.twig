@@ -28,7 +28,7 @@
 </style>
 
 
-<div id="title">Liste des Padawans</div>
+<div id="title">{{'Padawans list'|trans}}</div>
 
 
 <div class="grid-padawans">
@@ -37,7 +37,7 @@
             <div class="padawan-box">
                 <div class="padawan-name">{{ padawan.getPrenom }} {{ padawan.getNom }}</div>
 
-                <div class="sabre-laser-list"><span class="other-font">Sabre laser :</span></div>
+                <div class="sabre-laser-list"><span class="other-font">{{'Lightsabers'|trans}} :</span></div>
 
                 {% for sabre in padawan.getSabres %}
                     <p class="sabre-laser">
@@ -48,7 +48,7 @@
                     </p>
                 {% endfor %}
 
-                <div class="master"><span class="other-font">Maitre :</span> {{ padawan.getMaitre.getPrenom }} {{ padawan.getMaitre.getNom }}</div>
+                <div class="master"><span class="other-font">{{'Master'|trans}} :</span> {{ padawan.getMaitre.getPrenom }} {{ padawan.getMaitre.getNom }}</div>
 
             </div>
 

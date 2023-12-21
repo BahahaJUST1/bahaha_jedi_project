@@ -8,7 +8,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LogoutController extends AbstractController
 {
-    #[Route('/logout', name: 'app_logout')]
+    #[Route('/logout')]
+    public function indexNoLocale(): Response
+    {
+        return $this->redirectToRoute('app_logout', ['_locale' => 'en']);
+    }
+
+    #[Route('/{_locale<%app.supported_locales%>}/logout', name: 'app_logout')]
     public function index(): Response
     {
         return $this->render('logout/index.html.twig', [
