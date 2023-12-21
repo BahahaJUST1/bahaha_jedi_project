@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste utilisateurs{% endblock %}
+
+{% block body %}
+<style>
+    #goBack { position: fixed; bottom: 2rem; left: 2rem; height: 5rem; }
+    #goBack:hover { transform: scale(1.1); }
+</style>
+
+
+{% for user in users %}
+
+    <div>{{ user.getEmail() }}</div>
+
+{% endfor %}
+
+
+<a href="{{ path("app_menu") }}"><img id="goBack" src="{{ asset('images/back.png') }}"></a>
+
+
+{% endblock %}

@@ -3,6 +3,10 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+<style>
+    #goBack { position: fixed; bottom: 2rem; left: 2rem; height: 5rem; }
+    #goBack:hover { transform: scale(1.1); }
+</style>
     <h1>Register</h1>
 
     {{ form_errors(registrationForm) }}
@@ -12,8 +16,10 @@
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
+
+
+    <a href="{{ path("app_menu") }}"><img id="goBack" src="{{ asset('images/back.png') }}"></a>
 {% endblock %}

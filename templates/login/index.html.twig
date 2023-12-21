@@ -1,8 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LoginController!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
+<style>
+    @import url('https://fonts.cdnfonts.com/css/star-wars');
+
+    #goBack { position: fixed; bottom: 2rem; left: 2rem; height: 5rem; }
+    #goBack:hover { transform: scale(1.1); }
+
+    body { background-image: url("{{ asset('images/mustafar.jpg') }}"); background-position: top; background-size: cover; font-family: 'Star Wars', sans-serif; color: white; }
+</style>
+
+
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -19,4 +29,7 @@
 
         <button type="submit">login</button>
     </form>
+
+    <a href="{{ path("app_menu") }}"><img id="goBack" src="{{ asset('images/back.png') }}"></a>
+
 {% endblock %}

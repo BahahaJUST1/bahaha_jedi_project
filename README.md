@@ -8,6 +8,5 @@ php bin/console make:fixture nomDeFixture
 php bin/console doctrine:fixtures:load
 php bin/console security:hash-password
 
-admin login         : root@gmail.com
-admin pwd (clear)   : root
-admin pwd (hashed)  : $2y$13$URGGMjpAApga97tcOlCxEOFOUkwOUOPhlXnXss4WvXD3KYSg0apym
+admin login     : root@gmail.com
+admin password  : root
