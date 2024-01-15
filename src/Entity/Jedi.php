@@ -34,7 +34,7 @@ class Jedi extends UtilisateurForce
 
     public function getStatus(): ?string
     {
-        return $this->status;
+        return $this->status->value;
     }
 
     public function setStatus(Status $status): static

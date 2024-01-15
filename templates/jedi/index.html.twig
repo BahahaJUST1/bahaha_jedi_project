@@ -11,27 +11,96 @@
 
     body { background-image: url("{{ asset('images/home_bg.jpg') }}"); font-family: 'Star Wars', sans-serif; color: white; }
 
-    #title { text-align: center; font-size: 2.5rem; margin-top: 5rem; margin-bottom: 7rem; text-decoration: underline; color: yellow; }
+    #title { text-align: center; font-size: 2.5rem; margin-top: 5rem; text-decoration: underline; color: yellow; }
 
-    .grid-padawans { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 20fr)); text-align: center; }
+    .grid-jedis { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 20fr)); text-align: center; }
 
-    .padawan-box { border: 3px solid white; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; margin-bottom: 3rem; }
+    .jedi-box { border: 3px solid white; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; margin-bottom: 3rem; }
 
     p { margin: 0; }
 
-    .padawan-name { margin-bottom: 1rem; color: yellow; font-size: 1.2rem; text-align: center; }
+    .jedi-name { margin-bottom: 1rem; color: yellow; font-size: 1.2rem; text-align: center; }
+    .jedi-pp { width: 125px; }
 
     .sabre-laser-list { font-size: 1rem; text-decoration: underline; margin-top: 1.5rem; margin-bottom: 1rem; }
     .other-font { font-family: sans-serif; text-transform: uppercase; font-weight: bold }
-    
-    .master { margin-top: 1.5rem; }
+
+    #subtitle { transform: translate(-50%, -50%); margin-left: 50%; }
+    table { border: 1px solid white; text-align: center; font-family: sans-serif; background-color: black; transform: translate(-50%, -50%); margin-left: 50%; margin-top: 10rem; text-transform: uppercase; }
+    td, th { border: 1px solid white; padding: 0.5rem; }
+    th { color: yellow; }
+    caption { caption-side: bottom; margin-top: 10px; text-decoration: italic; background-color: black; font-style: italic; font-size: smaller; }
+
 </style>
 
 
 <div id="title">{{'Jedis list'|trans}}</div>
 
+    {% set chevaliers = 0 %}
+    {% set maitre = 0 %}
+    {% set grandMaitre = 0 %}
+    {% set sith = 0 %}
+    {% set total = 0 %}
+
+    {% for jedi in jedis %}
+        {% set total = total + 1 %}
+        {% if jedi.getStatus == "Chevalier Jedi" %}  {% set chevaliers = chevaliers + 1 %}
+        {% elseif jedi.getStatus == "Maître Jedi" %}  {% set maitre = maitre + 1 %}
+        {% elseif jedi.getStatus == "Grand Maître Jedi" %}  {% set grandMaitre = grandMaitre + 1 %}
+        {% elseif jedi.getStatus == "Sith" %}  {% set sith = sith + 1 %}
+        {% endif %}
+    {% endfor %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Number</th>
+                <th>Ratio</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Knight</td>
+                <td>{{chevaliers}}</td>
+                <td>{{(chevaliers * 100 / total)|round}}%</td>
+            </tr>
+            <tr>
+                <td>Master</td>
+                <td>{{maitre}}</td>
+                <td>{{(maitre * 100 / total)|round}}%</td>
+            </tr>
+            <tr>
+                <td>Grand-master</td>
+                <td>{{grandMaitre}}</td>
+                <td>{{(grandMaitre * 100 / total)|round}}%</td>
+            </tr>
+            <tr>
+                <td>Sith</td>
+                <td>{{sith}}</td>
+                <td>{{(sith * 100 / total)|round}}%</td>
+            </tr>
+        </tbody>
+        <caption>
+            {{'Status indicator'|trans}}
+        </caption>
+    </table>
 
 
+    <div class="grid-jedis">
+        
+        {# récupération des 5 derniers jedis #}
+        {% for jedi in jedis|slice((jedis|length)-5, jedis|length)|reverse %}
+
+                <div class="jedi-box">
+                    <div class="jedi-name">{{ jedi.getPrenom }} {{ jedi.getNom }}</div>
+
+                    <img class="jedi-pp" src="{{ jedi.getImage }}">
+                </div>
+
+        {% endfor %}
+    </div>
 
 
 <a href="{{ path("app_menu") }}"><img id="goBack" src="{{ asset('images/back.png') }}"></a>
