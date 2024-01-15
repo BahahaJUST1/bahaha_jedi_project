@@ -15,6 +15,9 @@ class Jedi extends UtilisateurForce
     #[ORM\Column]
     private ?Status $status = Status::chevalier;
 
+    #[ORM\Column]
+    private ?string $image = null;
+
     #[ORM\OneToOne(inversedBy: 'maitre', cascade: ['persist', 'remove'])]
     private ?Padawan $padawan = null;
 
@@ -37,6 +40,18 @@ class Jedi extends UtilisateurForce
     public function setStatus(Status $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

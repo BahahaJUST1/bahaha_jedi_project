@@ -41,6 +41,15 @@ class JediFixture extends Fixture implements DependentFixtureInterface
             Status::maitre
         ];
 
+        $images = [
+            "https://styles.redditmedia.com/t5_2z365/styles/communityIcon_82x82wngtto41.png",
+            "https://image.noelshack.com/fichiers/2024/03/1/1705316180-pong-krell.png",
+            "https://pbs.twimg.com/profile_images/625047088770994176/Zjux18Dq_400x400.jpg",
+            "https://d26oc3sg82pgk3.cloudfront.net/files/media/edit/image/33482/square_thumb%402x.jpg",
+            "https://image.noelshack.com/fichiers/2024/03/1/1705316404-qui-gon-jinn-headshot-tpm.jpg",
+            "https://pbs.twimg.com/profile_images/711256696526651392/S_wF4PAv_400x400.jpg"
+        ];
+
         $padawans = [
             "Padawan_1",
             null,
@@ -71,6 +80,7 @@ class JediFixture extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < count($noms); $i++ ) {
             $jedi = new Jedi();
             $jedi->setStatus($status[$i]);
+            $jedi->setImage($images[$i]);
             $jedi->setNom($noms[$i]);
             $jedi->setPrenom($prenoms[$i]);
             $padawans[$i] == null ? $jedi->setPadawan($padawans[$i]) : $jedi->setPadawan($this->getReference($padawans[$i]));
