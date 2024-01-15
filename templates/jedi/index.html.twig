@@ -15,23 +15,38 @@
 
     .grid-jedis { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 20fr)); text-align: center; }
 
-    .jedi-box { border: 3px solid white; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; margin-bottom: 3rem; }
+    .jedi-box { cursor: pointer; border: 3px solid white; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; margin-bottom: 3rem; }
+    .jedi-box:hover { transform: scale(1.1); }
 
     p { margin: 0; }
 
+    .error { color: red; }
+
     .jedi-name { margin-bottom: 1rem; color: yellow; font-size: 1.2rem; text-align: center; }
     .jedi-pp { width: 125px; }
+    .jedi-card-pp { width: 125px; transform: translate(0%, -50%); position: absolute; left: 10%; top: 50%; border-radius: 50%; border: 3px solid white; }
+    .jedi-card-cross { width: 25px; position: absolute; right: 0; border-top-right-radius: 8px; }
+    .jedi-card-cross:hover { cursor: pointer; transform: scale(1.05); }
 
     .sabre-laser-list { font-size: 1rem; text-decoration: underline; margin-top: 1.5rem; margin-bottom: 1rem; }
     .other-font { font-family: sans-serif; text-transform: uppercase; font-weight: bold }
+    .other-thin-font { font-family: sans-serif; text-transform: uppercase; }
 
     #subtitle { transform: translate(-50%, -50%); margin-left: 50%; }
-    table {  border: 3px solid white; background-color: black; border-radius: 10px; text-align: center; font-family: sans-serif; border-collapse: collapse; transform: translate(-50%, -50%); margin-left: 50%; margin-top: 10rem; text-transform: uppercase; }
+    table {  border: 3px solid white; background-color: black; text-align: center; font-family: sans-serif; border-collapse: collapse; transform: translate(-50%, -50%); margin-left: 50%; margin-top: 10rem; text-transform: uppercase; }
     td, th { border: 1px solid white; padding: 0.5rem; }
     th { color: yellow; }
     caption { caption-side: bottom; margin-top: 10px; text-decoration: italic; background-color: black; font-style: italic; font-size: smaller; }
 
-    .hide-jedi-box { visibility: hidden; }
+    .hide-jedi-box { display: none; }
+
+    .jedi-card { font-family: sans-serif; background-color: black;  border: 3px solid white; border-radius: 10px; width: 40%; transform: translate(-50%, 0%); margin-left: 50%; margin-bottom: 3rem; margin-top: -4rem; }
+    .jedi-card-grid { display: grid; grid-template-columns: 20fr 80fr; }
+    .blank-box-red { background-color: red; border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+    .blank-box-blue { background-color: blue; border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+    .jedi-info { margin-left: 5rem; padding: 1rem; }
+    .jedi-card-name { font-family: 'Star Wars', sans-serif; color: yellow; margin-top: 1rem; font-size: 1.5rem; }
+    li { margin-bottom: 0.3rem; }
 
 </style>
 
@@ -90,12 +105,99 @@
     </table>
 
 
+
+    {# récupération des 5 derniers jedis #}
+    {% for jedi in jedis|slice((jedis|length)-5, jedis|length)|reverse %}
+
+            <div class="jedi-card hide-jedi-box" id="jedi-box-{{jedi.id}}">
+
+                {# IMAGE #}
+                <img class="jedi-card-pp" src="{{ jedi.getImage }}">
+
+                {# CROIX #}
+                <img onclick="hideJediDetail({{jedi.id}})" class="jedi-card-cross" src="{{ asset('images/cross.png') }}">
+
+                <div class="jedi-card-grid">
+                    
+                    {# BLANK COLOR #}
+                    {% if jedi.getStatus == "Sith" %}
+                        <div class="blank-box-red"></div>
+                    {% else %}
+                        <div class="blank-box-blue"></div>
+                    {% endif %}
+
+                    {# INFOS #}
+                    <div class="jedi-info">
+
+                        {# PRENOM + NOM #}
+                        <div class="jedi-card-name">{{ jedi.getPrenom }} {{ jedi.getNom }}</div>
+
+                        <ul>
+                            {# STATUS #}
+                            <li>{{jedi.getStatus}}</li>
+
+                            {# SABRES #}
+                            <li>
+                                {% for sabre in jedi.getSabres %}
+                                    <p>
+                                        Sabre {{ sabre.getCouleur }}
+                                        {% if sabre.isBiLame %}
+                                            double
+                                        {% endif %}
+                                    </p>
+                                {% endfor %}
+                            </li>
+
+                            {# PADAWAN #}
+                            <li class="">
+                                Padawan : 
+                                {% if jedi.getPadawan != null %}
+                                    <span>{{jedi.getPadawan.getPrenom}} {{jedi.getPadawan.getNom}}</span>
+                                {% else %}
+                                    <span class="error">None</span>
+                                {% endif %}
+                            </li>
+
+                            {# LEGION #}
+                            <li class="">
+                                Legion : 
+                                {% if jedi.getLegion != null %}
+                                    {{jedi.getLegion.getNumero}}e
+                                {% else %}
+                                    <span class="error">None</span>
+                                {% endif %}
+                            </li>
+
+                            {# GUERRES #}
+                            <li class="">
+                                Wars : 
+                                {% if jedi.getGuerres|length != 0 %}
+                                    {% for guerre in jedi.getGuerres %}
+                                        {{ guerre.getPlanete }}, 
+                                    {% endfor %}
+                                {% else %}
+                                    <span class="error">None</span>
+                                {% endif %}
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+    {% endfor %}
+
+
+
+
     <div class="grid-jedis">
         
         {# récupération des 5 derniers jedis #}
         {% for jedi in jedis|slice((jedis|length)-5, jedis|length)|reverse %}
 
-                <div class="jedi-box" onmouseover="displayJediDetail({{jedi.id}})">
+                <div class="jedi-box" onclick="displayJediDetail({{jedi.id}})">
 
                     <div class="jedi-name">{{ jedi.getPrenom }} {{ jedi.getNom }}</div>
 
@@ -106,21 +208,6 @@
     </div>
 
 
-    <div class="grid-jedis">
-        
-        {# récupération des 5 derniers jedis #}
-        {% for jedi in jedis|slice((jedis|length)-5, jedis|length)|reverse %}
-
-                <div class="jedi-box hide-jedi-box" id="jedi-box-{{jedi.id}}">
-
-                    <div class="jedi-name">{{ jedi.id }}</div>
-
-                    <img class="jedi-pp" src="{{ jedi.getImage }}">
-                </div>
-
-        {% endfor %}
-    </div>
-
 
 <a href="{{ path("app_menu") }}"><img id="goBack" src="{{ asset('images/back.png') }}"></a>
 
@@ -128,17 +215,22 @@
 <script>
 
     document.querySelectorAll(".hide-jedi-box").forEach((jediBox) => {
-        jediBox.style.visibility = "hidden";
+        jediBox.style.display = "none";
     })
 
     function displayJediDetail(id) {
 
         document.querySelectorAll(".hide-jedi-box").forEach((jediBox) => {
-            jediBox.style.visibility = "hidden";
+            jediBox.style.display = "none";
         })
 
         let boxId = "#jedi-box-" + id;
-        document.querySelector(boxId).style.visibility = "visible";
+        document.querySelector(boxId).style.display = "block";
+    }
+
+    function hideJediDetail(id) {
+        let boxId = "#jedi-box-" + id;
+        document.querySelector(boxId).style.display = "none";
     }
 
 </script>
