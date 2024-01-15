@@ -26,10 +26,12 @@
     .other-font { font-family: sans-serif; text-transform: uppercase; font-weight: bold }
 
     #subtitle { transform: translate(-50%, -50%); margin-left: 50%; }
-    table { border: 1px solid white; text-align: center; font-family: sans-serif; background-color: black; transform: translate(-50%, -50%); margin-left: 50%; margin-top: 10rem; text-transform: uppercase; }
+    table {  border: 3px solid white; background-color: black; border-radius: 10px; text-align: center; font-family: sans-serif; border-collapse: collapse; transform: translate(-50%, -50%); margin-left: 50%; margin-top: 10rem; text-transform: uppercase; }
     td, th { border: 1px solid white; padding: 0.5rem; }
     th { color: yellow; }
     caption { caption-side: bottom; margin-top: 10px; text-decoration: italic; background-color: black; font-style: italic; font-size: smaller; }
+
+    .hide-jedi-box { visibility: hidden; }
 
 </style>
 
@@ -93,7 +95,8 @@
         {# récupération des 5 derniers jedis #}
         {% for jedi in jedis|slice((jedis|length)-5, jedis|length)|reverse %}
 
-                <div class="jedi-box">
+                <div class="jedi-box" onmouseover="displayJediDetail({{jedi.id}})">
+
                     <div class="jedi-name">{{ jedi.getPrenom }} {{ jedi.getNom }}</div>
 
                     <img class="jedi-pp" src="{{ jedi.getImage }}">
@@ -103,6 +106,41 @@
     </div>
 
 
+    <div class="grid-jedis">
+        
+        {# récupération des 5 derniers jedis #}
+        {% for jedi in jedis|slice((jedis|length)-5, jedis|length)|reverse %}
+
+                <div class="jedi-box hide-jedi-box" id="jedi-box-{{jedi.id}}">
+
+                    <div class="jedi-name">{{ jedi.id }}</div>
+
+                    <img class="jedi-pp" src="{{ jedi.getImage }}">
+                </div>
+
+        {% endfor %}
+    </div>
+
+
 <a href="{{ path("app_menu") }}"><img id="goBack" src="{{ asset('images/back.png') }}"></a>
+
+
+<script>
+
+    document.querySelectorAll(".hide-jedi-box").forEach((jediBox) => {
+        jediBox.style.visibility = "hidden";
+    })
+
+    function displayJediDetail(id) {
+
+        document.querySelectorAll(".hide-jedi-box").forEach((jediBox) => {
+            jediBox.style.visibility = "hidden";
+        })
+
+        let boxId = "#jedi-box-" + id;
+        document.querySelector(boxId).style.visibility = "visible";
+    }
+
+</script>
 
 {% endblock %}
