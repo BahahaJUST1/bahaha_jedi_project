@@ -15,10 +15,8 @@ class LogoutController extends AbstractController
     }
 
     #[Route('/{_locale<%app.supported_locales%>}/logout', name: 'app_logout')]
-    public function index(): Response
+    public function index()
     {
-        return $this->render('logout/index.html.twig', [
-            'controller_name' => 'LogoutController',
-        ]);
+        return;
     }
 }
