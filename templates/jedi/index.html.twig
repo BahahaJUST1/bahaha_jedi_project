@@ -71,30 +71,30 @@
     <table>
         <thead>
             <tr>
-                <th>Status</th>
-                <th>Number</th>
-                <th>Ratio</th>
+                <th>{{"Status"|trans}}</th>
+                <th>{{"Number"|trans}}</th>
+                <th>{{"Ratio"|trans}}</th>
             </tr>
         </thead>
 
         <tbody>
             <tr>
-                <td>Knight</td>
+                <td>{{"Knight"|trans}}</td>
                 <td>{{chevaliers}}</td>
                 <td>{{(chevaliers * 100 / total)|round}}%</td>
             </tr>
             <tr>
-                <td>Master</td>
+                <td>{{"Master"|trans}}</td>
                 <td>{{maitre}}</td>
                 <td>{{(maitre * 100 / total)|round}}%</td>
             </tr>
             <tr>
-                <td>Grand-master</td>
+                <td>{{"Grand-Master"|trans}}</td>
                 <td>{{grandMaitre}}</td>
                 <td>{{(grandMaitre * 100 / total)|round}}%</td>
             </tr>
             <tr>
-                <td>Sith</td>
+                <td>{{"Sith"|trans}}</td>
                 <td>{{sith}}</td>
                 <td>{{(sith * 100 / total)|round}}%</td>
             </tr>
@@ -154,29 +154,29 @@
                                 {% if jedi.getPadawan != null %}
                                     <span>{{jedi.getPadawan.getPrenom}} {{jedi.getPadawan.getNom}}</span>
                                 {% else %}
-                                    <span class="error">None</span>
+                                    <span class="error">{{"None"|trans}}</span>
                                 {% endif %}
                             </li>
 
                             {# LEGION #}
                             <li class="">
-                                Legion : 
+                                {{"Legion"|trans}} : 
                                 {% if jedi.getLegion != null %}
                                     {{jedi.getLegion.getNumero}}e
                                 {% else %}
-                                    <span class="error">None</span>
+                                    <span class="error">{{"None"|trans}}</span>
                                 {% endif %}
                             </li>
 
                             {# GUERRES #}
                             <li class="">
-                                Wars : 
+                                {{"Wars"|trans}} : 
                                 {% if jedi.getGuerres|length != 0 %}
                                     {% for guerre in jedi.getGuerres %}
                                         {{ guerre.getPlanete }}, 
                                     {% endfor %}
                                 {% else %}
-                                    <span class="error">None</span>
+                                    <span class="error">{{"None"|trans}}</span>
                                 {% endif %}
                             </li>
                         </ul>

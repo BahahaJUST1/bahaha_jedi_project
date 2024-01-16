@@ -9,25 +9,42 @@
     #goBack { position: fixed; bottom: 2rem; left: 2rem; height: 5rem; }
     #goBack:hover { transform: scale(1.1); }
 
-    body { background-image: url("{{ asset('images/mustafar.jpg') }}"); background-position: top; background-size: cover; font-family: 'Star Wars', sans-serif; color: white; }
+    body { background-color: black; background-image: url("{{ asset('images/death-star.jpg') }}"); background-position: right 15%; background-size: auto; background-repeat: no-repeat; font-family: 'Star Wars', sans-serif; color: white; }
+
+    #login-title { color: red; font-size: 2rem; text-align: center; margin-bottom: 3rem; }
+
+    form { width: 30%; text-shadow: 2px 2px black; border: 5px solid #3F3F3D; border-radius: 10px; background-color: #5D5D5C; padding: 2rem; position: absolute; transform: translate(-50%, -50%); left: 50%; top: 50%;}
+    input { padding: 0.5rem; width: 90%; margin-bottom: 2rem; margin-top: 5px; color: red; font-size: 1rem; background-color: grey; }
+    ::placeholder { color: #5F5F5F; }
+
+    #login-button { display:block; margin:auto; background-color: #3F3F3D; padding: 0.7rem; width: auto; font-family: 'Star Wars', sans-serif; border-radius: 5px; color: white; }
+    #login-button:hover { transform: scale(1.05); cursor: pointer; }
+    #login-error { text-align: center; margin-bottom: 5px; font-family: sans-serif; text-transform: uppercase; color: red; text-shadow: none; }
+
 </style>
 
-
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
     <form action="{{ path('app_login') }}" method="post">
-        <label for="username">{{"E-mail"|trans}}:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}">
 
-        <label for="password">{{"Password"|trans}}:</label>
-        <input type="password" id="password" name="_password">
+        <div id="login-title">{{"join the dark side"|trans}}</div>
+
+        <div>
+            <label for="username">{{"E-mail"|trans}}</label>
+            <input type="text" placeholder="emperor.palpatine@empire.com" id="username" name="_username" value="{{ last_username }}">
+        </div>
+
+        <div>
+            <label for="password">{{"Password"|trans}}</label>
+            <input type="password" placeholder="************" id="password" name="_password">
+        </div>
 
         {# redirection sur le menu #}
         <input type="hidden" name="_target_path" value="/menu">
 
-        <button type="submit">{{"login"|trans}}</button>
+        {% if error %}
+            <div id="login-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div id="login-error">
+        {% endif %}
+        <button id="login-button" type="submit">{{"login"|trans}}</button>
+
     </form>
 
     <a href="{{ path("app_home") }}"><img id="goBack" src="{{ asset('images/back.png') }}"></a>
