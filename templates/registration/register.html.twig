@@ -4,21 +4,40 @@
 
 {% block body %}
 <style>
+    @import url('https://fonts.cdnfonts.com/css/star-wars');
+    
     #goBack { position: fixed; bottom: 2rem; left: 2rem; height: 5rem; }
     #goBack:hover { transform: scale(1.1); }
+
+    body { background-color: black; background-image: url("{{ asset('images/death-star.jpg') }}"); background-position: right 15%; background-size: auto; background-repeat: no-repeat; font-family: 'Star Wars', sans-serif; color: white; }
+
+    #register-title { color: red; font-size: 2rem; text-align: center; margin-bottom: 3rem; }
+
+    #register-form { width: 30%; text-shadow: 2px 2px black; border: 5px solid #3F3F3D; border-radius: 10px; background-color: #5D5D5C; padding: 2rem; position: absolute; transform: translate(-50%, -50%); left: 50%; top: 50%;}
+    input { padding: 0.5rem; width: 90%; margin-bottom: 2rem; margin-top: 5px; color: red; font-size: 1rem; background-color: grey; }
+    ::placeholder { color: #5F5F5F; }
+
+    #register-button { display:block; margin:auto; background-color: #3F3F3D; padding: 0.7rem; width: auto; font-family: 'Star Wars', sans-serif; border-radius: 5px; color: white; }
+    #register-button:hover { transform: scale(1.05); cursor: pointer; }
+
 </style>
-    <h1>Register</h1>
 
-    {{ form_errors(registrationForm) }}
+    <div id="register-form">
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
+        <div id="register-title">{{"register"|trans}}</div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.email, {'attr': {'placeholder': 'dark.maul@dustbin.com'}}) }}
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Password',
+            }) }}
+
+            <button type="submit" id="register-button" class="btn">{{"register"|trans}}</button>
+        {{ form_end(registrationForm) }}
+
+    </div>
 
 
     <a href="{{ path("app_menu") }}"><img id="goBack" src="{{ asset('images/back.png') }}"></a>
