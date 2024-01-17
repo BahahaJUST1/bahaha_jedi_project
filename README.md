@@ -7,6 +7,7 @@ php bin/console doctrine:migrations:migrate
 php bin/console make:fixture nomDeFixture
 php bin/console doctrine:fixtures:load
 php bin/console security:hash-password
+php bin/console make:form
 
 admin login     : root@gmail.com
 admin password  : root
