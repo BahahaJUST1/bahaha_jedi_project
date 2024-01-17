@@ -12,6 +12,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GuerreController extends AbstractController
 {
+
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/guerre')]
     public function indexNoLocale(): Response
     {
@@ -38,15 +46,21 @@ class GuerreController extends AbstractController
 
 
     #[Route('/{_locale<%app.supported_locales%>}/guerre/form', name: 'form_guerre', methods: ['GET', 'POST'])]
-    public function creation(Request $request, EntityManagerInterface $em): Response
+    public function creation(Request $request): Response
     {
         $guerre = new Guerre();
         $form = $this->createForm(GuerreType::class, $guerre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($guerre);
-            $em->flush();
+
+            foreach ($guerre->getCombattants() as $combattant) {
+                $combattant->addGuerre($guerre);
+                $this->entityManager->persist($combattant);
+            }
+            
+            $this->entityManager->persist($guerre);
+            $this->entityManager->flush();
     
             $this->addFlash('success', 'Guerre créée avec succès, vous êtes fier de vous ?');
             return $this->redirectToRoute('app_guerre');

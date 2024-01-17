@@ -92,6 +92,7 @@ class Jedi extends UtilisateurForce
     {
         if (!$this->guerres->contains($guerre)) {
             $this->guerres->add($guerre);
+            $guerre->addCombattant($this);
         }
 
         return $this;
