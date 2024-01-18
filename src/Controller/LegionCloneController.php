@@ -12,6 +12,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LegionCloneController extends AbstractController
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/legion-clone')]
     public function indexNoLocale(): Response
     {
@@ -38,15 +45,21 @@ class LegionCloneController extends AbstractController
 
 
     #[Route('/{_locale<%app.supported_locales%>}/legion-clone/form', name: 'form_legion', methods: ['GET', 'POST'])]
-    public function creation(Request $request, EntityManagerInterface $em): Response
+    public function creation(Request $request): Response
     {
         $legion = new Legion();
         $form = $this->createForm(LegionType::class, $legion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($legion);
-            $em->flush();
+
+            foreach ($legion->getGeneraux() as $generaux) {
+                $generaux->setLegion($legion);
+                $this->entityManager->persist($generaux);
+            }
+
+            $this->entityManager->persist($legion);
+            $this->entityManager->flush();
     
             $this->addFlash('success', 'Légion créée avec succès !');
             return $this->redirectToRoute('app_legion_clone');

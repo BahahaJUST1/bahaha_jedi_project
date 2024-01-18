@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Legion;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,6 +16,14 @@ class LegionType extends AbstractType
         $builder
             ->add('numero')
             ->add('commandant')
+
+            ->add('generaux', EntityType::class, [
+                'class' => 'App\Entity\Jedi',
+                'choice_label' => 'nom',
+                'multiple' => true,
+                'expanded' => true,
+            ])
+
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'save'],
             ])
