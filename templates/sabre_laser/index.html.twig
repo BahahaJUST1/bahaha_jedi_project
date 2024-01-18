@@ -51,6 +51,9 @@
 
 
     <a href="{{ path("app_menu") }}"><img id="goBack" src="{{ asset('images/back.png') }}"></a>
-    <a href="{{ path("form_sabre") }}"><img id="formBtn" src="{{ asset('images/form.png') }}"></a>
+
+    {% if (is_granted('ROLE_ADMIN')) %}
+        <a href="{{ path("form_sabre") }}"><img id="formBtn" src="{{ asset('images/form.png') }}"></a>
+    {% endif %}
 
 {% endblock %}
