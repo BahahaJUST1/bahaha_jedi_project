@@ -19,7 +19,9 @@ class LegionType extends AbstractType
 
             ->add('generaux', EntityType::class, [
                 'class' => 'App\Entity\Jedi',
-                'choice_label' => 'nom',
+                'choice_label' => function ($jedi) {
+                    return $jedi->getPrenom() . ' ' . $jedi->getNom();
+                },
                 'multiple' => true,
                 'expanded' => true,
             ])

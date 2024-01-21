@@ -3,11 +3,31 @@
  
 {% block body %}
     <style>
-    @import url('https://fonts.cdnfonts.com/css/star-wars');
+        @import url('https://fonts.cdnfonts.com/css/star-wars');
+        
+        #goBack { position: fixed; bottom: 2rem; left: 2rem; height: 5rem; }
+        #goBack:hover { transform: scale(1.1); }
 
-    #goBack { position: fixed; bottom: 2rem; left: 2rem; height: 5rem; }
-    #goBack:hover { transform: scale(1.1); }
-</style>
+        #venator { position: absolute; height: 100%; transform: translate(-50%; -50%); left: 15%; z-index: 0; }
+
+        body { background-color: black; font-family: 'Star Wars', sans-serif; color: white; }
+
+        form { position: absolute; z-index: 1; width: 20%; text-shadow: 2px 2px black; border: 5px solid #3F3F3D; border-radius: 10px; background-color: #5D5D5C; padding: 2rem; transform: translate(-50%, -50%); left: 50%; top: 50%; }
+
+        #form-title { color: red; font-size: 2rem; text-align: center; margin-bottom: 3rem; }
+
+        input[type=text], input[type=number] { padding: 0.5rem; width: 90%; margin-bottom: 2rem; margin-top: 5px; color: black; font-size: 1rem; background-color: grey; }
+        ::placeholder { color: white; }
+
+        #legion_generaux label { font-family: sans-serif; text-transform: uppercase; font-weight: bold }
+        #legion_generaux label::after { content: "\a"; white-space: pre; }
+        input[type=checkbox] { margin-top: 5px; }
+
+        button[type=submit] { display:block; margin:auto; background-color: #3F3F3D; margin-top: 1rem; padding: 0.7rem; width: auto; font-family: 'Star Wars', sans-serif; border-radius: 5px; color: white; }
+        button[type=submit]:hover { transform: scale(1.05); cursor: pointer; }
+    </style>
+
+    <img id="venator" src="{{ asset('images/venator.jpg') }}">
 
 
     {{ form(form) }}
