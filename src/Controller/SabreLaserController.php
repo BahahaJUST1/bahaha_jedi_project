@@ -51,11 +51,6 @@ class SabreLaserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            foreach ($sabre->getProprietaire() as $proprio) {
-                $proprio->addSabre($sabre);
-                $this->entityManager->persist($proprio);
-            }
             
             $this->entityManager->persist($sabre);
             $this->entityManager->flush();
