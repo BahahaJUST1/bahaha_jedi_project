@@ -3,7 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Jedi;
+use App\Enum\Status;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,11 +17,16 @@ class JediType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('status')
+            ->add('status', ChoiceType::class, [
+                'choices' => Status::toArray(),
+                'placeholder' => 'Choisissez un status',
+                'label' => 'Statut',
+            ])
             ->add('image')
-            ->add('padawan')
-            ->add('legion')
-            ->add('guerres')
+
+            ->add('save', SubmitType::class, [
+                'attr' => ['class' => 'save'],
+            ])
         ;
     }
 

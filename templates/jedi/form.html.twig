@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block title %}Jedis{% endblock %}
+ 
+{% block body %}
+    <style>
+    @import url('https://fonts.cdnfonts.com/css/star-wars');
+
+    #goBack { position: fixed; bottom: 2rem; left: 2rem; height: 5rem; }
+    #goBack:hover { transform: scale(1.1); }
+</style>
+
+
+    {{ form(form) }}
+
+    <a href="{{ path("app_jedi") }}"><img id="goBack" src="{{ asset('images/back.png') }}"></a>
+{% endblock %}
