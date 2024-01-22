@@ -80,6 +80,13 @@ class Jedi extends UtilisateurForce
         return $this;
     }
 
+    public function removeLegion(): static
+    {
+        $this->legion = null;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, guerre>
      */

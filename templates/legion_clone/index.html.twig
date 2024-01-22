@@ -16,7 +16,7 @@
 
     .grid-legion { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 20fr)); text-align: center; }
 
-    .legion-box { border: 3px solid white; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; margin-bottom: 3rem; }
+    .legion-box { position: relative; border: 3px solid white; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; margin-bottom: 3rem; }
 
     p { margin: 0; }
 
@@ -25,6 +25,9 @@
     .jedi-leader { font-size: 1rem; text-decoration: underline; margin-top: 1.5rem; margin-bottom: 1rem; }
     .no-jedi { color: red; font-size: 0.7rem; }
     .other-font { font-family: sans-serif; text-transform: uppercase; font-weight: bold }
+
+    .legion-card-update { border-bottom: 3px solid white; border-left: 3px solid white; width: 25px; position: absolute; top: 0; right: 0; border-top-right-radius: 8px; }
+    .legion-card-update:hover { cursor: pointer; transform: scale(1.05); }
 </style>
 
 
@@ -35,6 +38,13 @@
     {% for legion in legions %}
 
             <div class="legion-box">
+
+            {% if (is_granted('ROLE_ADMIN')) %}
+                <a href="{{ path('modif_legion', {'id': legion.id}) }}">
+                    <img class="legion-card-update" src="{{ asset('images/update.png') }}">
+                </a>
+            {% endif %}
+
                 <div class="legion-number">{{ legion.getNumero }}e legion</div>
                 <div class="clone-commander"><span class="other-font">{{'Clone commander'|trans}} :</span> {{ legion.getCommandant }}</div>
 

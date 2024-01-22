@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Jedi;
 use App\Entity\Legion;
 use App\Form\LegionType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -66,6 +67,64 @@ class LegionCloneController extends AbstractController
         }
     
         return $this->render('legion_clone/form.html.twig', [
+            'legion' => $legion,
+            'form' => $form->createView()
+        ]);
+    }
+
+
+
+    #[Route('/legion-clone/modif/{id}', name: 'app_legion_index_modif', methods: ['GET'])]
+    public function indexNoLocaleModif(int $id): Response
+    {
+        return $this->redirectToRoute('modif_legion', ['_locale' => 'en', 'id' => $id]);
+    }
+
+
+    #[Route('/{_locale<%app.supported_locales%>}/legion-clone/modif/{id}', name: 'modif_legion', methods: ['GET', 'POST'])]
+    public function update(int $id, Request $request): Response
+    {
+        $legion = $this->entityManager->getRepository(Legion::class)->find($id);
+
+        if (!$legion) {
+            throw $this->createNotFoundException('Legion non trouvée');
+        }
+
+        // on récupère les generaux qui étaient en charge de la légion avant la modif
+        $generauxAvant = $legion->getGeneraux()->map(fn($jedi) => $jedi->getId())->toArray();
+
+        $form = $this->createForm(LegionType::class, $legion);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // on récupère les generaux qui sont en charge de la légion après la modif
+            $generauxApres = $legion->getGeneraux()->map(fn($jedi) => $jedi->getId())->toArray();
+  
+            // on récupère uniquement les jedis qui ont été décochés
+            $generauxSupprimes = array_diff($generauxAvant, $generauxApres);
+
+            // on les retire de la legion
+            foreach ($generauxSupprimes as $generalId) {
+                $general = $this->entityManager->getReference(Jedi::class, $generalId);
+                $legion->removeGeneraux($general);
+                $general->removeLegion();
+                $this->entityManager->persist($general);
+            }
+
+            foreach ($legion->getGeneraux() as $general) {
+                $general->setLegion($legion);
+                $this->entityManager->persist($general);
+            }
+            
+            $this->entityManager->persist($legion);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Légion modifiée avec succès !');
+            return $this->redirectToRoute('app_legion_clone');
+        }
+
+        return $this->render('legion_clone/modif.html.twig', [
             'legion' => $legion,
             'form' => $form->createView()
         ]);
