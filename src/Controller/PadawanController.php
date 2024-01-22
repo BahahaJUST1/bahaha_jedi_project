@@ -86,16 +86,14 @@ class PadawanController extends AbstractController
             throw $this->createNotFoundException('Padawan non trouvée');
         }
 
-        // suppression du padawan du maitre
-        $padawan->getMaitre()->removePadawan();
-        // suppression du maitre du padawan
-        $padawan->removeMaitre();
+        $oldMaster = $padawan->getMaitre();
 
         $form = $this->createForm(PadawanType::class, $padawan);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $oldMaster->removePadawan();
             $padawan->getMaitre()->setPadawan($padawan);
             
             $this->entityManager->persist($padawan);
