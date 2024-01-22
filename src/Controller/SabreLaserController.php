@@ -64,4 +64,39 @@ class SabreLaserController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+
+    #[Route('/sabre-laser/modif/{id}', name: 'app_sabre_index_modif', methods: ['GET'])]
+    public function indexNoLocaleModif(int $id): Response
+    {
+        return $this->redirectToRoute('modif_sabre', ['_locale' => 'en', 'id' => $id]);
+    }
+
+
+    #[Route('/{_locale<%app.supported_locales%>}/sabre-laser/modif/{id}', name: 'modif_sabre', methods: ['GET', 'POST'])]
+    public function update(int $id, Request $request): Response
+    {
+        $sabre = $this->entityManager->getRepository(Sabre::class)->find($id);
+
+        if (!$sabre) {
+            throw $this->createNotFoundException('Sabre non trouvée');
+        }
+
+        $form = $this->createForm(SabreType::class, $sabre);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $this->entityManager->persist($sabre);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Sabre modifiée avec succès !');
+            return $this->redirectToRoute('app_sabre_laser');
+        }
+
+        return $this->render('sabre_laser/modif.html.twig', [
+            'sabre' => $sabre,
+            'form' => $form->createView()
+        ]);
+    }
 }

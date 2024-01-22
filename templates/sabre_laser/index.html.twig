@@ -16,7 +16,7 @@
 
     .grid-sabres { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 20fr)); text-align: center; }
 
-    .sabre-box { border: 3px solid white; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; margin-bottom: 3rem; }
+    .sabre-box { position: relative; border: 3px solid white; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; margin-bottom: 3rem; }
 
     p { margin: 0; }
 
@@ -24,6 +24,9 @@
     
     .proprio { margin-top: 1.5rem; }
     .other-font { font-family: sans-serif; text-transform: uppercase; font-weight: bold }
+
+    .sabre-card-update { border-bottom: 3px solid white; border-left: 3px solid white; width: 25px; position: absolute; top: 0; right: 0; border-top-right-radius: 8px; }
+    .sabre-card-update:hover { cursor: pointer; transform: scale(1.05); }
 </style>
 
 
@@ -34,6 +37,12 @@
     {% for sabre in sabres %}
 
             <div class="sabre-box">
+
+                {% if (is_granted('ROLE_ADMIN')) %}
+                    <a href="{{ path('modif_sabre', {'id': sabre.id}) }}">
+                        <img class="sabre-card-update" src="{{ asset('images/update.png') }}">
+                    </a>
+                {% endif %}
 
                 <div class="sabre-laser">
                         Sabre {{sabre.getCouleur }}

@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{'Clones legions'|trans}}{% endblock %}
+{% block title %}{{'Lightsabers'|trans}}{% endblock %}
  
 {% block body %}
     <style>
@@ -19,9 +19,10 @@
         input[type=text], input[type=number] { padding: 0.5rem; width: 90%; margin-bottom: 2rem; margin-top: 5px; color: black; font-size: 1rem; background-color: grey; }
         ::placeholder { color: white; }
 
-        #legion_generaux label { font-family: sans-serif; text-transform: uppercase; font-weight: bold }
-        #legion_generaux label::after { content: "\a"; white-space: pre; }
-        input[type=checkbox] { margin-top: 5px; }
+        #sabre_proprietaire label { font-family: sans-serif; text-transform: uppercase; font-weight: bold }
+        #sabre_proprietaire label::after { content: "\a"; white-space: pre; }
+        input[type=radio] { margin-top: 5px; }
+        input[type=checkbox] { margin-bottom: 2rem; }
 
         button[type=submit] { display:block; margin:auto; background-color: #3F3F3D; margin-top: 1rem; padding: 0.7rem; width: auto; font-family: 'Star Wars', sans-serif; border-radius: 5px; color: white; }
         button[type=submit]:hover { transform: scale(1.05); cursor: pointer; }
@@ -32,5 +33,5 @@
 
     {{ form(form) }}
 
-    <a href="{{ path("app_legion_clone") }}"><img id="goBack" src="{{ asset('images/back.png') }}"></a>
+    <a href="{{ path("app_sabre_laser") }}"><img id="goBack" src="{{ asset('images/back.png') }}"></a>
 {% endblock %}
