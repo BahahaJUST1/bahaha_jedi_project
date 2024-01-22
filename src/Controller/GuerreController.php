@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Guerre;
+use App\Entity\Jedi;
 use App\Form\GuerreType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -89,10 +90,27 @@ class GuerreController extends AbstractController
             throw $this->createNotFoundException('Guerre non trouvée');
         }
 
+        // on récupère les jedis qui étaient en guerre sur la planète avant la modif
+        $combattantsAvant = $guerre->getCombattants()->map(fn($jedi) => $jedi->getId())->toArray();
+
         $form = $this->createForm(GuerreType::class, $guerre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // on récupère les jedis qui sont en guerre sur la planète après la modif
+            $combattantsApres = $guerre->getCombattants()->map(fn($jedi) => $jedi->getId())->toArray();
+  
+            // on récupère uniquement les jedis qui ont été décochés
+            $combattantsSupprimes = array_diff($combattantsAvant, $combattantsApres);
+
+            // on les retire de la guerre
+            foreach ($combattantsSupprimes as $combattantId) {
+                $combattant = $this->entityManager->getReference(Jedi::class, $combattantId);
+                $guerre->removeCombattant($combattant);
+                $combattant->removeGuerre($guerre);
+                $this->entityManager->persist($combattant);
+            }
 
             foreach ($guerre->getCombattants() as $combattant) {
                 $combattant->addGuerre($guerre);
