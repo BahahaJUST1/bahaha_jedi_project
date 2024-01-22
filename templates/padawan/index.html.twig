@@ -16,7 +16,7 @@
 
     .grid-padawans { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 20fr)); text-align: center; }
 
-    .padawan-box { border: 3px solid white; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; margin-bottom: 3rem; }
+    .padawan-box { position: relative; border: 3px solid white; background-color: black; border-radius: 10px; height: auto; width: 50%; margin: 0 auto; padding: 1.5rem; margin-bottom: 3rem; }
 
     p { margin: 0; }
 
@@ -26,6 +26,9 @@
     .other-font { font-family: sans-serif; text-transform: uppercase; font-weight: bold }
     
     .master { margin-top: 1.5rem; }
+
+    .padawan-card-update { border-bottom: 3px solid white; border-left: 3px solid white; width: 25px; position: absolute; top: 0; right: 0; border-top-right-radius: 8px; }
+    .padawan-card-update:hover { cursor: pointer; transform: scale(1.05); }
 </style>
 
 
@@ -36,6 +39,13 @@
     {% for padawan in padawans %}
 
             <div class="padawan-box">
+
+                {% if (is_granted('ROLE_ADMIN')) %}
+                    <a href="{{ path('modif_padawan', {'id': padawan.id}) }}">
+                        <img class="padawan-card-update" src="{{ asset('images/update.png') }}">
+                    </a>
+                {% endif %}
+
                 <div class="padawan-name">{{ padawan.getPrenom }} {{ padawan.getNom }}</div>
 
                 <div class="sabre-laser-list"><span class="other-font">{{'Lightsabers'|trans}} :</span></div>

@@ -33,4 +33,11 @@ class Padawan extends UtilisateurForce
 
         return $this;
     }
+
+    public function removeMaitre(): static
+    {
+        $this->maitre = null;
+
+        return $this;
+    }
 }

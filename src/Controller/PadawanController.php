@@ -68,4 +68,46 @@ class PadawanController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+
+    #[Route('/padawan/modif/{id}', name: 'app_padawan_index_modif', methods: ['GET'])]
+    public function indexNoLocaleModif(int $id): Response
+    {
+        return $this->redirectToRoute('modif_padawan', ['_locale' => 'en', 'id' => $id]);
+    }
+
+
+    #[Route('/{_locale<%app.supported_locales%>}/padawan/modif/{id}', name: 'modif_padawan', methods: ['GET', 'POST'])]
+    public function update(int $id, Request $request): Response
+    {
+        $padawan = $this->entityManager->getRepository(Padawan::class)->find($id);
+
+        if (!$padawan) {
+            throw $this->createNotFoundException('Padawan non trouvée');
+        }
+
+        // suppression du padawan du maitre
+        $padawan->getMaitre()->removePadawan();
+        // suppression du maitre du padawan
+        $padawan->removeMaitre();
+
+        $form = $this->createForm(PadawanType::class, $padawan);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $padawan->getMaitre()->setPadawan($padawan);
+            
+            $this->entityManager->persist($padawan);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Padawan modifié avec succès !');
+            return $this->redirectToRoute('app_padawan');
+        }
+
+        return $this->render('padawan/modif.html.twig', [
+            'padawan' => $padawan,
+            'form' => $form->createView()
+        ]);
+    }
 }

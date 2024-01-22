@@ -68,6 +68,13 @@ class Jedi extends UtilisateurForce
         return $this;
     }
 
+    public function removePadawan(): static
+    {
+        $this->padawan = null;
+
+        return $this;
+    }
+
     public function getLegion(): ?legion
     {
         return $this->legion;
