@@ -71,4 +71,44 @@ class GuerreController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+
+    #[Route('/guerre/modif/{id}', name: 'app_guerre_index_modif', methods: ['GET'])]
+    public function indexNoLocaleModif(int $id): Response
+    {
+        return $this->redirectToRoute('modif_guerre', ['_locale' => 'en', 'id' => $id]);
+    }
+
+
+    #[Route('/{_locale<%app.supported_locales%>}/guerre/modif/{id}', name: 'modif_guerre', methods: ['GET', 'POST'])]
+    public function update(int $id, Request $request): Response
+    {
+        $guerre = $this->entityManager->getRepository(Guerre::class)->find($id);
+
+        if (!$guerre) {
+            throw $this->createNotFoundException('Guerre non trouvée');
+        }
+
+        $form = $this->createForm(GuerreType::class, $guerre);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            foreach ($guerre->getCombattants() as $combattant) {
+                $combattant->addGuerre($guerre);
+                $this->entityManager->persist($combattant);
+            }
+            
+            $this->entityManager->persist($guerre);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Guerre modifiée avec succès, vous êtes fier de vous ?');
+            return $this->redirectToRoute('app_guerre');
+        }
+
+        return $this->render('guerre/modif.html.twig', [
+            'guerre' => $guerre,
+            'form' => $form->createView()
+        ]);
+    }
 }
