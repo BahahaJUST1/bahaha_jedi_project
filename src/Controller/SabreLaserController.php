@@ -96,7 +96,34 @@ class SabreLaserController extends AbstractController
 
         return $this->render('sabre_laser/modif.html.twig', [
             'sabre' => $sabre,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'urlId' => $id
         ]);
+    }
+
+
+    #[Route('/sabre-laser/delete/{id}', methods: ['GET'])]
+    public function indexNoLocaleDelete(int $id): Response
+    {
+        return $this->redirectToRoute('delete_sabre', ['_locale' => 'en', 'id' => $id]);
+    }
+
+
+    #[Route('/{_locale<%app.supported_locales%>}/sabre-laser/delete/{id}', name: 'delete_sabre', methods: ['GET', 'POST'])]
+    public function delete(int $id): Response
+    {
+        $sabre = $this->entityManager->getRepository(Sabre::class)->find($id);
+
+        if (!$sabre) {
+            throw $this->createNotFoundException('Sabre non trouvée');
+        }
+
+        $sabre->getProprietaire()->removeSabre($sabre);
+            
+        $this->entityManager->remove($sabre);
+        $this->entityManager->flush();
+
+        $this->addFlash('success', 'Sabre supprimé avec succès !');
+        return $this->redirectToRoute('app_sabre_laser');
     }
 }

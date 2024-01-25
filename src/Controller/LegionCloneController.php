@@ -140,7 +140,7 @@ class LegionCloneController extends AbstractController
 
 
     #[Route('/{_locale<%app.supported_locales%>}/legion-clone/delete/{id}', name: 'delete_legion', methods: ['GET', 'POST'])]
-    public function delete(int $id, Request $request): Response
+    public function delete(int $id): Response
     {
         $legion = $this->entityManager->getRepository(Legion::class)->find($id);
 
