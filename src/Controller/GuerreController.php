@@ -126,7 +126,48 @@ class GuerreController extends AbstractController
 
         return $this->render('guerre/modif.html.twig', [
             'guerre' => $guerre,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'urlId' => $id
         ]);
+    }
+
+
+    #[Route('/guerre/delete/{id}', methods: ['GET'])]
+    public function indexNoLocaleDelete(int $id): Response
+    {
+        return $this->redirectToRoute('delete_guerre', ['_locale' => 'en', 'id' => $id]);
+    }
+
+
+    #[Route('/{_locale<%app.supported_locales%>}/guerre/delete/{id}', name: 'delete_guerre', methods: ['GET', 'POST'])]
+    public function delete(int $id): Response
+    {
+        $guerre = $this->entityManager->getRepository(Guerre::class)->find($id);
+
+        if (!$guerre) {
+            throw $this->createNotFoundException('Guerre non trouvée');
+        }
+
+        // on récupère les jedis qui étaient en guerre sur la planète avant la suppression
+        $combattantsAvant = $guerre->getCombattants()->map(fn($jedi) => $jedi->getId())->toArray();
+
+        // si on a trouvé des combattants
+        if ($combattantsAvant != []) {
+            // on les retire de la guerre
+            foreach ($combattantsAvant as $combattantId) {
+                $combattant = $this->entityManager->getReference(Jedi::class, $combattantId);
+                $guerre->removeCombattant($combattant);
+                $combattant->removeGuerre($guerre);
+                $this->entityManager->persist($combattant);
+            }
+        }
+
+        // suppression de l'entité
+        $this->entityManager->remove($guerre);
+        $this->entityManager->flush();
+
+        $this->addFlash('success', 'Guerre supprimée avec succès, félicitation !');
+
+        return $this->redirectToRoute('app_guerre');
     }
 }
