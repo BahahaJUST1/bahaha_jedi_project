@@ -126,7 +126,47 @@ class LegionCloneController extends AbstractController
 
         return $this->render('legion_clone/modif.html.twig', [
             'legion' => $legion,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'urlId' => $id
         ]);
+    }
+
+
+    #[Route('/legion-clone/delete/{id}', methods: ['GET'])]
+    public function indexNoLocaleDelete(int $id): Response
+    {
+        return $this->redirectToRoute('delete_legion', ['_locale' => 'en', 'id' => $id]);
+    }
+
+
+    #[Route('/{_locale<%app.supported_locales%>}/legion-clone/delete/{id}', name: 'delete_legion', methods: ['GET', 'POST'])]
+    public function delete(int $id, Request $request): Response
+    {
+        $legion = $this->entityManager->getRepository(Legion::class)->find($id);
+
+        if (!$legion) {
+            throw $this->createNotFoundException('Legion non trouvée');
+        }
+
+        // on récupère les generaux qui étaient en charge de la légion avant la modif
+        $generauxAvant = $legion->getGeneraux()->map(fn($jedi) => $jedi->getId())->toArray();
+
+        // si on a trouvé des combattants
+        if ($generauxAvant != []) {
+            // on les retire de la legion
+            foreach ($generauxAvant as $generalId) {
+                $general = $this->entityManager->getReference(Jedi::class, $generalId);
+                $legion->removeGeneraux($general);
+                $general->removeLegion();
+                $this->entityManager->persist($general);
+            }
+        }
+        
+        // suppression de l'entité
+        $this->entityManager->remove($legion);
+        $this->entityManager->flush();
+
+        $this->addFlash('success', 'Légion supprimée avec succès !');
+        return $this->redirectToRoute('app_legion_clone');
     }
 }
