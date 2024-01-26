@@ -3,7 +3,7 @@
 Ce projet est un projet universitaire réalisé dans le cadre du cours de développement avancé de BUT3.\
 THE JEDI PROJECT met en scène différentes entités de l'univers de Star Wars au sein d'un projet Symfony.\
 Veuillez noter que le lore n'est pas totalement en adéquation avec les entités de ce projet en raison des exigences du sujet.\
-\
+
 
 ## LANCEMENT DU PROJET
 \
