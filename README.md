@@ -4,7 +4,7 @@ Ce projet est un projet universitaire réalisé dans le cadre du cours de dével
 THE JEDI PROJECT met en scène différentes entités de l'univers de Star Wars au sein d'un projet Symfony.\
 Veuillez noter que le lore n'est pas totalement en adéquation avec les entités de ce projet en raison des exigences du sujet.\
 \
-\
+
 ## LANCEMENT DU PROJET
 \
 **Prérequis :**
@@ -20,7 +20,7 @@ Veuillez noter que le lore n'est pas totalement en adéquation avec les entités
 - Installer composer : `composer i`
 - Accéder au site depuis son localhost ex : `http://localhost/bahaha_jedi_project/public/`
 \
-\
+
 ## FEATURES POUR ADMINS
 \
 Les administrateurs ont la possibilité d'ajouter d'autres administrateurs et de gérer les entités du projet.\
@@ -31,9 +31,9 @@ Les identifiants de connexion sont les suivants :
 \
 *Mise en garde : le pouvoir des siths est très puissant et risque de vous détourner du côté lumineux de la force. Prenez garde si vous ne voulez pas finir consumé par la peur et la haine.*
 \
-\
+
 ## ENTITES ET RELATIONS
-\
+
 ### ENTITE PRINCIPALE
 \
 Ce projet est composé d'une entité principale : **Jedi**.\
@@ -48,7 +48,7 @@ Voici les relations qui composent un Jedi :
 - OneToOne : Un jedi est lié à un et un seul Padawan
 - ManyToOne : Plusieurs jedis peuvent être en charge d'une légion de clones
 - ManyToMany : Plusieurs jedis peuvent être impliqués dans plusieurs guerres
-\
+
 ### ENTITES ENFANTS
 \
 Les entités enfants qui sont en lien avec les jedis sont : **Sabre**, **Padawan**, **Legion**, **Guerre**\
